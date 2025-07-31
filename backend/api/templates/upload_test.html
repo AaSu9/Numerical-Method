@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Image Upload</title>
+</head>
+<body>
+    <h1>Test Image Upload to /api/upload/</h1>
+    <form id="uploadForm" enctype="multipart/form-data" method="post">
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Upload & Solve</button>
+    </form>
+    <pre id="result"></pre>
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/api/upload/', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        };
+    </script>
+</body>
+</html> 
